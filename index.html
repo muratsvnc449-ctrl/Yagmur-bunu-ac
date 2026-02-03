@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Beni Seviyor musun?</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #ffe6f0;
+  text-align: center;
+  padding-top: 60px;
+  overflow: hidden;
+}
+button {
+  padding: 15px 25px;
+  font-size: 18px;
+  margin: 10px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  position: relative;
+}
+.yes { background: #ff5c8a; color: white; }
+.no {
+  background: #aaa;
+  color: white;
+  position: absolute;
+}
+img { width: 260px; margin-top: 20px; }
+
+.heart {
+  position: fixed;
+  color: red;
+  font-size: 24px;
+  animation: float 2s ease-out forwards;
+}
+@keyframes float {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-150px) scale(1.8); opacity: 0; }
+}
+</style>
+</head>
+<body>
+
+<h1 id="question">Beni seviyor musun? 💖</h1>
+
+<div id="buttons">
+  <button class="yes" onclick="love()">Evet 💕</button>
+  <button class="no" id="noBtn" onmouseover="runAway()" onclick="doubt()">Sevmiyor musun?</button>
+</div>
+
+<div id="result"></div>
+
+<script>
+let doubtCount = 0;
+
+function doubt() {
+  doubtCount++;
+  document.getElementById("question").innerText =
+    doubtCount === 1 ? "Emin misin? 🤨"
+    : doubtCount === 2 ? "Çok mu eminsin? 😏"
+    : "Bak bu buton boşuna kaçmıyor 😌";
+}
+
+function runAway() {
+  const btn = document.getElementById("noBtn");
+  const x = Math.random() * (window.innerWidth - 100);
+  const y = Math.random() * (window.innerHeight - 100);
+  btn.style.left = x + "px";
+  btn.style.top = y + "px";
+}
+
+function love() {
+  document.getElementById("buttons").style.display = "none";
+  document.getElementById("question").innerText = "Biliyordum 💖";
+  document.getElementById("result").innerHTML = `
+    <p>İyi ki varsın 🥰</p>
+    <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
+  `;
+  heartExplosion();
+}
+
+function heartExplosion() {
+  for (let i = 0; i < 30; i++) {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerText = "💖";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.top = Math.random() * window.innerHeight + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 2000);
+  }
+}
+</script>
+
+</body>
+</html>
